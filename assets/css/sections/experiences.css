@@ -15,6 +15,45 @@
   color: #3c4858;
 }
 
+.experience-entry-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.experience-toggle {
+  border: none;
+  background: rgba(36, 138, 170, 0.12);
+  color: #248aaa;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.experience-toggle:hover,
+.experience-toggle:focus {
+  background: rgba(36, 138, 170, 0.24);
+  outline: none;
+}
+
+.experience-toggle i {
+  transition: transform 0.25s ease;
+}
+
+.experience-toggle.collapsed i {
+  transform: rotate(-90deg);
+}
+
+.experience-entry-body {
+  margin-top: 0.75rem;
+}
+
 .experiences-section .designation {
   font-weight: 600;
 }
