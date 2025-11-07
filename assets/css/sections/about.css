@@ -14,60 +14,143 @@
   transition: all 0.3s ease-in;
 }
 
+
 .resume-card {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1.5rem;
-  border-radius: 18px;
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  justify-content: center;
+  align-items: center;
 }
 
-.resume-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+.resume-preview {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  height: 360px;
+  border-radius: 24px;
+  background: #0f172a;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.3);
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.25);
 }
 
-.resume-card-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #2563eb, #60a5fa);
-  color: #ffffff;
+.resume-window-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 36px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1rem;
+  z-index: 2;
+}
+
+.resume-window-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.8);
+}
+
+.resume-window-bar span:nth-child(1) {
+  background: #f87171;
+}
+
+.resume-window-bar span:nth-child(2) {
+  background: #fbbf24;
+}
+
+.resume-window-bar span:nth-child(3) {
+  background: #34d399;
+}
+
+.resume-preview iframe {
+  position: absolute;
+  top: 36px;
+  left: -18px;
+  width: calc(100% + 36px);
+  height: 120%;
+  transform: translateY(-2%);
+  transform-origin: top center;
+  border: none;
+  pointer-events: none;
+  background: #111827;
+  filter: saturate(1.05) contrast(1.05);
+}
+
+.resume-preview iframe::-webkit-scrollbar {
+  display: none;
+}
+
+.resume-preview iframe {
+  scrollbar-width: none;
+}
+
+.resume-preview::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.12) 0%, rgba(15, 23, 42, 0) 40%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.resume-preview-overlay {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
-  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
-  flex-shrink: 0;
+  gap: 1.25rem;
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.25), rgba(15, 23, 42, 0.65));
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 3;
 }
 
-.resume-card-title {
-  margin-bottom: 0.35rem;
-  font-weight: 600;
-  color: #1f2937;
+.resume-preview:hover .resume-preview-overlay,
+.resume-preview:focus-within .resume-preview-overlay {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.resume-card-copy {
-  margin-bottom: 1rem;
-  color: #5f6c7b;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.resume-card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.resume-card-actions .btn {
+.resume-preview-trigger,
+.resume-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
   border-radius: 999px;
-  padding: 0.4rem 1.2rem;
-  font-weight: 500;
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.22), rgba(226, 232, 240, 0.08));
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.28);
+  color: #e2e8f0;
+  border: none;
+  font-size: 1.35rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.resume-download-btn {
+  text-decoration: none;
+}
+
+.resume-preview-trigger:hover,
+.resume-download-btn:hover,
+.resume-preview-trigger:focus-visible,
+.resume-download-btn:focus-visible {
+  transform: translateY(-4px) scale(1.08);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(14, 116, 144, 0.9));
+  color: #ffffff;
+  outline: none;
+}
+
+.resume-preview-trigger:focus-visible,
+.resume-download-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
 }
 
 .focus-area-grid {
@@ -214,22 +297,12 @@ body.resume-modal-open {
 }
 
 @media only screen and (max-width: 768px) {
-  .resume-card {
-    flex-direction: column;
-    align-items: flex-start;
+  .resume-preview {
+    max-width: 100%;
   }
 }
 
 @media only screen and (max-width: 576px) {
-  .resume-card-actions {
-    width: 100%;
-  }
-
-  .resume-card-actions .btn {
-    width: 100%;
-    text-align: center;
-  }
-
   .resume-modal-dialog {
     width: 92vw;
     height: 80vh;
